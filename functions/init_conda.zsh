@@ -24,7 +24,7 @@ set_conda() {
         fi
         unset __conda_setup
         # <<< conda initialize <<<
-    elif [[ "$os_type" == "macOS"]]; then
+    elif [[ "$os_type" == "macOS" ]]; then
         # >>> conda initialize >>>
         # !! Contents within this block are managed by 'conda init' !!
         __conda_setup="$('/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
