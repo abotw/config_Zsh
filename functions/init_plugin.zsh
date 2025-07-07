@@ -25,37 +25,37 @@ init_ohmyzsh() {
 # 调用函数
 init_ohmyzsh
 
-# Download zimfw plugin manager if missing.
-if [[ ! -e ${ZIM_HOME}/zimfw.zsh ]]; then
-    curl -fsSL --create-dirs -o ${ZIM_HOME}/zimfw.zsh \
-        https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
-fi
+# # Download zimfw plugin manager if missing.
+# if [[ ! -e ${ZIM_HOME}/zimfw.zsh ]]; then
+#     curl -fsSL --create-dirs -o ${ZIM_HOME}/zimfw.zsh \
+#         https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
+# fi
 
-# Install missing modules, and update ${ZIM_HOME}/init.zsh if missing or outdated.
-if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZDOTDIR:-${HOME}}/.zimrc ]]; then
-    source ${ZIM_HOME}/zimfw.zsh init -q
-fi
+# # Install missing modules, and update ${ZIM_HOME}/init.zsh if missing or outdated.
+# if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZDOTDIR:-${HOME}}/.zimrc ]]; then
+#     source ${ZIM_HOME}/zimfw.zsh init -q
+# fi
 
-source ${ZIM_HOME}/init.zsh
+# source ${ZIM_HOME}/init.zsh
 
-# Bind ^[[A/^[[B manually so up/down works both before and after zle-line-init
-zmodload -F zsh/terminfo +p:terminfo
-for key in '^[[A' '^P' ${terminfo[kcuu1]}; do
-    bindkey ${key} history-substring-search-up
-done
+# # Bind ^[[A/^[[B manually so up/down works both before and after zle-line-init
+# zmodload -F zsh/terminfo +p:terminfo
+# for key in '^[[A' '^P' ${terminfo[kcuu1]}; do
+#     bindkey ${key} history-substring-search-up
+# done
 
-for key in '^[[B' '^N' ${terminfo[kcud1]}; do
-    bindkey ${key} history-substring-search-down
-done
+# for key in '^[[B' '^N' ${terminfo[kcud1]}; do
+#     bindkey ${key} history-substring-search-down
+# done
 
-for key in 'k'; do
-    bindkey -M vicmd ${key} history-substring-search-up
-done
+# for key in 'k'; do
+#     bindkey -M vicmd ${key} history-substring-search-up
+# done
 
-for key in 'j'; do
-    bindkey -M vicmd ${key} history-substring-search-down
-done
-unset key
+# for key in 'j'; do
+#     bindkey -M vicmd ${key} history-substring-search-down
+# done
+# unset key
 
-zstyle ':zim:prompt-pwd:fish-style' dir-length 0
-export PWD_COLOR=blue
+# zstyle ':zim:prompt-pwd:fish-style' dir-length 0
+# export PWD_COLOR=blue
