@@ -12,10 +12,6 @@ ENABLE_CORRECTION="true"
 # Plugins #
 ###########
 
-zmodule ~/.local/share/oh-my-zsh/git
-zmodule ~/.local/share/oh-my-zsh/zsh-syntax-highlighting
-zmodule ~/.local/share/oh-my-zsh/zsh-autosuggestions
-
 source ${XDG_CONFIG_HOME}/zsh/functions/get_os_type.zsh
 source ${XDG_CONFIG_HOME}/zsh/functions/init_env.zsh
 source ${XDG_CONFIG_HOME}/zsh/functions/init_alias.zsh
