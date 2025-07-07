@@ -12,11 +12,11 @@ ENABLE_CORRECTION="true"
 # Plugins #
 ###########
 
-plugins=(
-    git
-    zsh-syntax-highlighting
-    zsh-autosuggestions
-)
+# plugins=(
+#     git
+#     zsh-syntax-highlighting
+#     zsh-autosuggestions
+# )
 
 source ${XDG_CONFIG_HOME}/zsh/functions/get_os_type.zsh
 source ${XDG_CONFIG_HOME}/zsh/functions/init_env.zsh
