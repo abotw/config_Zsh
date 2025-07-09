@@ -25,37 +25,43 @@ init_ohmyzsh() {
 # 调用函数
 init_ohmyzsh
 
-# # Download zimfw plugin manager if missing.
-# if [[ ! -e ${ZIM_HOME}/zimfw.zsh ]]; then
-#     curl -fsSL --create-dirs -o ${ZIM_HOME}/zimfw.zsh \
-#         https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
-# fi
+# ------------------
+# Initialize modules
+# ------------------
 
-# # Install missing modules, and update ${ZIM_HOME}/init.zsh if missing or outdated.
-# if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZDOTDIR:-${HOME}}/.zimrc ]]; then
-#     source ${ZIM_HOME}/zimfw.zsh init -q
-# fi
+# ZIM_HOME=/Users/mql/.local/share/zim
+# Download zimfw plugin manager if missing.
+if [[ ! -e ${ZIM_HOME}/zimfw.zsh ]]; then
+  if (( ${+commands[curl]} )); then
+    curl -fsSL --create-dirs -o ${ZIM_HOME}/zimfw.zsh \
+        https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
+  else
+    mkdir -p ${ZIM_HOME} && wget -nv -O ${ZIM_HOME}/zimfw.zsh \
+        https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
+  fi
+fi
+# Install missing modules, and update ${ZIM_HOME}/init.zsh if missing or outdated.
+if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZIM_CONFIG_FILE:-${ZDOTDIR:-${HOME}}/.zimrc} ]]; then
+  source ${ZIM_HOME}/zimfw.zsh init
+fi
+# Initialize modules.
+source ${ZIM_HOME}/init.zsh
 
-# source ${ZIM_HOME}/init.zsh
+# ------------------------------
+# Post-init module configuration
+# ------------------------------
 
-# # Bind ^[[A/^[[B manually so up/down works both before and after zle-line-init
-# zmodload -F zsh/terminfo +p:terminfo
-# for key in '^[[A' '^P' ${terminfo[kcuu1]}; do
-#     bindkey ${key} history-substring-search-up
-# done
+#
+# zsh-history-substring-search
+#
 
-# for key in '^[[B' '^N' ${terminfo[kcud1]}; do
-#     bindkey ${key} history-substring-search-down
-# done
+zmodload -F zsh/terminfo +p:terminfo
+# Bind ^[[A/^[[B manually so up/down works both before and after zle-line-init
+for key ('^[[A' '^P' ${terminfo[kcuu1]}) bindkey ${key} history-substring-search-up
+for key ('^[[B' '^N' ${terminfo[kcud1]}) bindkey ${key} history-substring-search-down
+for key ('k') bindkey -M vicmd ${key} history-substring-search-up
+for key ('j') bindkey -M vicmd ${key} history-substring-search-down
+unset key
 
-# for key in 'k'; do
-#     bindkey -M vicmd ${key} history-substring-search-up
-# done
-
-# for key in 'j'; do
-#     bindkey -M vicmd ${key} history-substring-search-down
-# done
-# unset key
-
-# zstyle ':zim:prompt-pwd:fish-style' dir-length 0
+zstyle ':zim:prompt-pwd:fish-style' dir-length 0
 # export PWD_COLOR=blue
